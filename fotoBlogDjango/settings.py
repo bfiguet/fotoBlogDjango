@@ -131,6 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR.joinpath('static/')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -140,7 +141,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'authentication.User'
 
 LOGIN_URL = 'login'
-
 LOGIN_REDIRECT_URL = 'home'
-
 LOGOUT_REDIRECT_URL = LOGIN_URL
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.joinpath('media/')

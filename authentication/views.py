@@ -1,8 +1,22 @@
 from django.conf import settings
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from . import forms
+
+@login_required
+def new_photo_profil(request):
+	form = forms.UploadProfilePhotoForm()
+	if request.method == 'POST':
+		form = forms.UploadProfilePhotoForm(request.POST, request.FILES)
+		if form.is_valid():
+			photo = form.save
+			photo.uploader = request.user
+			photo.save()
+			return redirect('home')
+	return render(request, 'authentication/new_photo_profil.html', context={'form':form})
+
 
 def signup_page(request):
 	form = forms.SignupForm()

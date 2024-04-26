@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Bienvenue sur le Blog!</h1>
-	<p>Vous etes connecte!</p>
+	<h2>Photos</h2>
+	{% for photo in photos %}
+	<img src="{{ photo.image.url }}" alt="image">
+	<p>{{ photo.caption }}</p>
+	
+	{% endfor %}
 {% endblock content %}
