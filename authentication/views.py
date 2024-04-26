@@ -1,8 +1,23 @@
-from django.contrib.auth import authenticate, login, logout
+from django.conf import settings
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
-from django.views.generic import View
 
 from . import forms
+
+def signup_page(request):
+	form = forms.SignupForm()
+	if request.method == 'POST':
+		form = forms.SignupForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			#auto login user
+			login(request, user)
+			return redirect(settings.LOGIN_REDIRECT_URL)
+	return render(request, 'authentication/signup.html', context={'form': form})
+
+#def logout_user(request):
+#	logout(request)
+#	return redirect('login')
 
 #class LoginPage(View):
 #	form_class = forms.LoginForm
@@ -24,7 +39,3 @@ from . import forms
 #			else:
 #				message = 'Identifiants invalides.'
 #		return render(request, self.template_name, context={'form': form, 'message': message})
-
-def logout_user(request):
-	logout(request)
-	return redirect('login')
