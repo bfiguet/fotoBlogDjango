@@ -30,9 +30,6 @@ urlpatterns = [
 		template_name='authentication/login.html',
 		redirect_authenticated_user=True),
 		name='login'),
-	#path('logout/', LogoutView.as_view(
-	#	template_name='authentication/logout.html'),
-	#	name='logout'),
 	path('logout/', LogoutView.as_view(), name='logout'),
 	path('signup/', authentication.views.signup_page, name='signup'),
 	path('change-password/', PasswordChangeView.as_view(
@@ -43,7 +40,12 @@ urlpatterns = [
 		name='password_change_done'),
 	path('home/', blog.views.home, name='home'),
 	path('photo/upload/', blog.views.photo_upload, name='photo_upload'),
-	path('change-profil-photo', authentication.views.new_photo_profil, name='change_profil_photo'),
+	path('blog/create/', blog.views.blog_and_photo_upload, name='blog_create'),
+	path('blog/<int:blog_id>', blog.views.view_blog, name='view_blog'),
+	path('blog/<int:blog_id>/edit', blog.views.edit_blog, name='edit_blog'),
+	path('profile-photo/upload', authentication.views.upload_profile_photo, name='upload_profile_photo'),
+	path('photo/upload-multiple/', blog.views.create_multi_photos, name='create_multi_photos'),
+	path('follow-users/', blog.views.follow_users, name='follow_users'),
 ]
 
 if settings.DEBUG: #env de dev
